@@ -13,7 +13,7 @@ route.post("/register", (req, res) => {
 
   bcrypt.hash(password, saltRounds, (err, hash) => {
     if (err) {
-      return new Error(err);
+      console.log(err);
     }
 
     db.transaction((trx) => {
@@ -38,7 +38,8 @@ route.post("/register", (req, res) => {
 
                 return res.status(200).json(result);
               });
-            });
+            })
+            .catch((err) => res.status(400).json(err));
         })
         .then(trx.commit)
         .catch(trx.rollback);
