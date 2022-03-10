@@ -16,6 +16,6 @@ app.use(registerRoute);
 app.use(profileRoute);
 app.use(imageRoute);
 
-app.listen(3001, () => {
-  console.log("Listening to Port Number 3001");
+app.listen(process.env.PORT || 3001, () => {
+  console.log(`Listening to Port Number ${process.env.PORT}`);
 });
