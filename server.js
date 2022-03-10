@@ -11,6 +11,10 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.get("/", (req, res) => {
+  res.status(200).json("It's working!");
+});
+
 app.use(signinRoute);
 app.use(registerRoute);
 app.use(profileRoute);
