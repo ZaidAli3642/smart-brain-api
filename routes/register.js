@@ -13,7 +13,7 @@ route.post("/register", (req, res) => {
 
   bcrypt.hash(password, saltRounds, (err, hash) => {
     if (err) {
-      console.log(err);
+      return res.status(400).json(err);
     }
 
     db.transaction((trx) => {
