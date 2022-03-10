@@ -36,7 +36,7 @@ route.post("/register", (req, res) => {
               jwt.sign(user[0], "secret", (err, result) => {
                 if (err) throw new Error(err);
 
-                res.status(200).json(result);
+                return res.status(200).json(result);
               });
             });
         })
