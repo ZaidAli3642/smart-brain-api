@@ -47,7 +47,28 @@ route.post("/register", (req, res) => {
     //     res.status(400).json("Unable to Register");
     //   });
 
-    res.status(200).json("hELLO");
+    db("login")
+      .insert({
+        email: email,
+        hash: hash,
+      })
+      .returning("email")
+      .then((loginEmail) =>
+        db("users")
+          .insert({
+            email: loginEmail[0].email,
+            name: name,
+            joined: new Date(),
+          })
+          .returning("*")
+          .then((user) => {
+            res.status(200).json(user);
+          })
+          .catch((err) => res.status(400).json("Error occured!"))
+      )
+      .catch((err) => res.status(400).json("Unable to register!"));
+
+    // res.status(200).json("hELLO");
 
     // db.transaction((trx) => {
     //   return trx
