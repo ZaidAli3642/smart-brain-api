@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use(signinRoute);
-app.use(registerRoute);
+app.use("/register", registerRoute);
 app.use(profileRoute);
 app.use(imageRoute);
 

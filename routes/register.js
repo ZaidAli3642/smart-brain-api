@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const db = require("./database");
 
-route.post("/register", (req, res) => {
+route.post("/", (req, res) => {
   const { email, name, password } = req.body;
   const saltRounds = 10;
 
