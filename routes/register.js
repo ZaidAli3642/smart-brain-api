@@ -34,16 +34,17 @@ route.post("/register", (req, res) => {
             .returning("*")
             .then((user) => {
               jwt.sign(user[0], "secret", (err, result) => {
-                if (err) return new Error(err);
+                if (err)
+                  return res.status(400).json("Error while generating token.");
                 console.log(err, result);
                 res.status(200).json({ result: result });
               });
             })
-            .catch((err) => res.status(400).json(err));
+            .catch((err) => res.status(400).json("Unable to register 1"));
         })
         .then(trx.commit)
         .catch(trx.rollback);
-    }).catch((err) => res.status(400).json(err));
+    }).catch((err) => res.status(400).json("Unable to register 2"));
   });
 
   res.status(200).json("Hello");
