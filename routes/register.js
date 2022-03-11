@@ -38,7 +38,7 @@ route.post("/register", (req, res) => {
             .returning("*")
             .then((user) => {
               jwt.sign(user[0], "secret", (err, result) => {
-                if (err) throw new Error(err);
+                if (err) return new Error(err);
 
                 return res.status(200).json(result);
               });
