@@ -3,6 +3,19 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const db = require("./database");
 
+const registerUser = (hash, email, name) => {
+  db("login")
+    .insert({
+      email: email,
+      hash: hash,
+    })
+    .returning("email")
+    .then((loginEmail) => {
+      return loginEmail;
+    })
+    .catch((err) => res.status(400).json("Unable to register!"));
+};
+
 route.post("/register", (req, res) => {
   const { email, name, password } = req.body;
   const saltRounds = 5;
@@ -16,16 +29,8 @@ route.post("/register", (req, res) => {
       return res.status(400).json(err);
     }
 
-    // res.status(200).json({ message: hash });
-
-    db("login")
-      .insert({
-        email: email,
-        hash: hash,
-      })
-      .returning("email")
-      .then((loginEmail) => res.status(200).json(loginEmail))
-      .catch((err) => res.status(400).json("Unable to register!"));
+    const email = registerUser(hash, email, name);
+    res.status(200).json({ email: email });
   });
 });
 
