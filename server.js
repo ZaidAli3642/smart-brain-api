@@ -1,40 +1,37 @@
-const express = require("express");
-const cors = require("cors");
-const signinRoute = require("./routes/signin");
-const registerRoute = require("./routes/register");
-const profileRoute = require("./routes/profile");
-const imageRoute = require("./routes/image");
+const express = require('express');
+const bodyParser = require('body-parser'); // latest version of exressJS now comes with Body-Parser!
+const bcrypt = require('bcrypt-nodejs');
+const cors = require('cors');
+const knex = require('knex');
+
+const register = require('./controllers/register');
+const signin = require('./controllers/signin');
+const profile = require('./controllers/profile');
+const image = require('./controllers/image');
+
+const db = knex({
+  // connect to your own database here:
+  client: 'pg',
+  connection: {
+    host : '127.0.0.1',
+    user : 'aneagoie',
+    password : '',
+    database : 'smart-brain'
+  }
+});
 
 const app = express();
 
-// app.use(function (req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Credentials", true);
-//   res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json"
-//   );
-//   next();
-// });
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-app.use(
-  cors({
-    origin: new URL("http://localhost:3000"),
-    credentials: true,
-  })
-);
+app.use(cors())
+app.use(express.json()); // latest version of exressJS now comes with Body-Parser!
 
-app.get("/", (req, res) => {
-  res.status(200).json("It's working!");
-});
+app.get('/', (req, res)=> { res.send(db.users) })
+app.post('/signin', signin.handleSignin(db, bcrypt))
+app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt) })
+app.get('/profile/:id', (req, res) => { profile.handleProfileGet(req, res, db)})
+app.put('/image', (req, res) => { image.handleImage(req, res, db)})
+app.post('/imageurl', (req, res) => { image.handleApiCall(req, res)})
 
-app.use(signinRoute);
-app.use(registerRoute);
-app.use(profileRoute);
-app.use(imageRoute);
-
-app.listen(process.env.PORT || 3001, () => {
-  console.log(`Listening to Port Number ${process.env.PORT || 3001}`);
-});
+app.listen(3000, ()=> {
+  console.log('app is running on port 3000');
+})
