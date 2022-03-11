@@ -40,7 +40,7 @@ route.post("/register", (req, res) => {
               jwt.sign(user[0], "secret", (err, result) => {
                 if (err) return new Error(err);
 
-                return res.status(200).json({ token: result });
+                return res.status(200).send(result);
               });
             })
             .catch((err) => res.status(400).json(err));
