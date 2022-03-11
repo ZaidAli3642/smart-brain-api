@@ -36,9 +36,10 @@ route.post("/register", (req, res) => {
     })
       .then((inserts) => {
         console.log(inserts);
-        jwt.sign(inserts[0], "secret", { expiresIn: "1h" }, (err, result) => {
-          res.status(200).json(result);
-        });
+        // jwt.sign(inserts[0], "secret", { expiresIn: "1h" }, (err, result) => {
+        //   res.status(200).json(result);
+        // });
+        res.status(200).json(inserts);
       })
       .catch(function (error) {
         // If we get here, that means that neither the 'Old Books' catalogues insert,
