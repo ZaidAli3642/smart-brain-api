@@ -16,16 +16,16 @@ route.post("/register", (req, res) => {
       return res.status(400).json(err);
     }
 
-    res.status(200).json({ message: hash });
+    // res.status(200).json({ message: hash });
 
-    // db("login")
-    //   .insert({
-    //     email: email,
-    //     hash: hash,
-    //   })
-    //   .returning("email")
-    //   .then((loginEmail) => res.status(200).json(loginEmail))
-    //   .catch((err) => res.status(400).json("Unable to register!"));
+    db("login")
+      .insert({
+        email: email,
+        hash: hash,
+      })
+      .returning("email")
+      .then((loginEmail) => res.status(200).json(loginEmail))
+      .catch((err) => res.status(400).json("Unable to register!"));
   });
 });
 
