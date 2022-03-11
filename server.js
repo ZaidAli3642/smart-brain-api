@@ -11,10 +11,10 @@ app.use(express.json());
 app.use(cors());
 
 app.use(signinRoute);
-app.use("/register", registerRoute);
+app.use(registerRoute);
 app.use(profileRoute);
 app.use(imageRoute);
 
-app.listen(3001, () => {
-  console.log("Listening to Port Number 3001");
+app.listen(process.env.PORT || 3001, () => {
+  console.log(`Listening to Port Number ${process.env.PORT || 3001}`);
 });
