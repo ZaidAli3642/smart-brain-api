@@ -29,7 +29,7 @@ route.post("/register", (req, res) => {
       return res.status(400).json(err);
     }
 
-    const email = registerUser(hash, email, name);
+    // const email = registerUser(hash, email, name);
     res.status(200).json({ email: "Hello" });
   });
 });
