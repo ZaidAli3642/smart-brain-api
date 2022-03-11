@@ -16,7 +16,7 @@ route.post("/register", (req, res) => {
       return res.status(400).json(err);
     }
 
-    res.status(200).json({ message: hello });
+    res.status(200).json({ message: hash });
 
     // db("login")
     //   .insert({
