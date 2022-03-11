@@ -43,7 +43,10 @@ route.post("/register", (req, res) => {
             .catch((err) => res.status(400).json("Unable to register 1"));
         })
         .then(trx.commit)
-        .catch(trx.rollback);
+        .catch((err) => {
+          res.status(400).json("Unable to register 3");
+          trx.rollback;
+        });
     }).catch((err) => res.status(400).json("Unable to register 2"));
   });
 });
