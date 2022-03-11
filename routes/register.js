@@ -17,35 +17,37 @@ route.post("/register", (req, res) => {
     }
 
     // Using trx as a query builder:
-    db.transaction((trx) => {
-      return trx
-        .insert({ hash: hash, email: email })
-        .into("login")
-        .returning("email")
-        .then((loginEmail) => {
-          return trx("users")
-            .insert({
-              email: loginEmail[0].email,
-              name: name,
-              joined: new Date(),
-            })
-            .returning("*");
-        })
-        .then(trx.commit)
-        .catch(trx.rollback);
-    })
-      .then((inserts) => {
-        console.log(inserts);
-        // jwt.sign(inserts[0], "secret", { expiresIn: "1h" }, (err, result) => {
-        //   res.status(200).json(result);
-        // });
-        res.status(200).json(inserts);
-      })
-      .catch(function (error) {
-        // If we get here, that means that neither the 'Old Books' catalogues insert,
-        // nor any of the books inserts will have taken place.
-        res.status(400).json("Unable to Register");
-      });
+    // db.transaction((trx) => {
+    //   return trx
+    //     .insert({ hash: hash, email: email })
+    //     .into("login")
+    //     .returning("email")
+    //     .then((loginEmail) => {
+    //       return trx("users")
+    //         .insert({
+    //           email: loginEmail[0].email,
+    //           name: name,
+    //           joined: new Date(),
+    //         })
+    //         .returning("*");
+    //     })
+    //     .then(trx.commit)
+    //     .catch(trx.rollback);
+    // })
+    //   .then((inserts) => {
+    //     console.log(inserts);
+    //     // jwt.sign(inserts[0], "secret", { expiresIn: "1h" }, (err, result) => {
+    //     //   res.status(200).json(result);
+    //     // });
+    //     res.status(200).json(inserts);
+    //   })
+    //   .catch(function (error) {
+    //     // If we get here, that means that neither the 'Old Books' catalogues insert,
+    //     // nor any of the books inserts will have taken place.
+    //     res.status(400).json("Unable to Register");
+    //   });
+
+    res.status(200).json("hELLO");
 
     // db.transaction((trx) => {
     //   return trx
