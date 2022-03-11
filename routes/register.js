@@ -37,7 +37,7 @@ route.post("/register", (req, res) => {
                 if (err)
                   return res.status(400).json("Error while generating token.");
                 console.log(err, result);
-                res.status(200).json({ result: result });
+                res.status(200).json("hello");
               });
             })
             .catch((err) => res.status(400).json("Unable to register 1"));
@@ -46,8 +46,6 @@ route.post("/register", (req, res) => {
         .catch(trx.rollback);
     }).catch((err) => res.status(400).json("Unable to register 2"));
   });
-
-  res.status(200).json("Hello");
 });
 
 module.exports = route;
