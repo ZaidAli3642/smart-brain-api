@@ -7,13 +7,14 @@ const db = knex({
     rejectUnauthorized: false,
   },
 
-  // connection: {
-  //   host: "127.0.0.1",
-  //   port: 5432,
-  //   user: "postgres",
-  //   password: "test",
-  //   database: "smart-brain",
-  // },
+  connection: {
+    host: "ec2-52-70-186-184.compute-1.amazonaws.com",
+    port: 5432,
+    user: "vxssppscfhhwro",
+    password:
+      "f57f5f0c69eb82cf15a4321c0306d01cbb2421c91854a082f9106499d85f5433",
+    database: "dehjs18or6gfn1",
+  },
 });
 
 // export const database = {
