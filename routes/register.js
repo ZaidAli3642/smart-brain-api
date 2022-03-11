@@ -3,10 +3,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const db = require("./database");
 
-route.get("/register", (req, res) => {
-  res.status(200).json("Register working!");
-});
-
 route.post("/register", (req, res) => {
   const { email, name, password } = req.body;
   const saltRounds = 10;
