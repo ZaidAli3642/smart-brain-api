@@ -8,12 +8,11 @@ const db = knex({
   },
 
   connection: {
-    host: "ec2-52-70-186-184.compute-1.amazonaws.com",
-    port: 5432,
-    user: "vxssppscfhhwro",
-    password:
-      "f57f5f0c69eb82cf15a4321c0306d01cbb2421c91854a082f9106499d85f5433",
-    database: "dehjs18or6gfn1",
+    host: process.env.DATABASE_HOST,
+    port: process.env.DATABASE_PORT,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_NAME,
   },
 });
 
